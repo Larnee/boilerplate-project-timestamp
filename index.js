@@ -24,16 +24,8 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date?", function (req, res) {
-  const date = req.query.date;
-	console.log("-------------------------");
-	console.log(date);
-	console.log("-------------------------");
-	if ( date === "" ) {
-		const unixDate = new Date();
-	}
-	else {
-		const unixDate= new Date(date);
-	}
+  const date = req.params.date;
+	const unixDate = new Date(date);
 
 	if (unixDate instanceof Date && !isNaN(date)) {
 		const utcDate = unixDate.toUTCString();
