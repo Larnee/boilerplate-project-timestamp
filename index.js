@@ -27,9 +27,8 @@ app.get("/api/:date?", function (req, res) {
   const date = Number(req.params.date);
 	const unixDate = new Date(date);
 
-	if (unixDate instanceof Date && !isNaN(date)) {
-		const utcDate = unixDate.toUTCString();
-		res.json({unix: unixDate, utc: utcDate});
+	if (unixDate instanceof Date && !isNaN(unixDate)) {
+		res.json({ unix: unixDate.getTime(), utc: unixDate()});
 	}
 	else {
 		res.json({ error : "Invalid Date" });	
