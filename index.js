@@ -25,13 +25,12 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date?", function (req, res) {
   const param = req.params.date;
-	if (param === "")
-	{
-		const unixDate = new Date()
+  let unixDate;
+	if (param === "" || param === undefined) {
+		unixDate = new Date();
 	}
 	else {
-		const date = Number(param);
-		const unixDate = new Date(date);
+	  unixDate = new Date(Number(param));
 	}
 
 	if (unixDate instanceof Date && !isNaN(unixDate)) {
