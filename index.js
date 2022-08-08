@@ -26,24 +26,13 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   const strParam = req.params.date;
   const numParam = Number(strParam);
-  let unixDate;
+  const unixDate = strParam === "" || strParam === undefined ? new Date() 
+    : isNaN(numParam) ? new Date(Date.parse(strParam)) 
+    : new Date(numParam);
 
-	if (strParam === "" || strParam === undefined) {
-    unixDate = new Date();
-	}
-	else if (isNaN(numParam)) {
-    unixDate = new Date(Date.parse(strParam));
-	}
-  else {
-    unixDate = new Date(numParam);
-  }
-
-	if (unixDate instanceof Date && !isNaN(unixDate)) {
+	if (unixDate instanceof Date && !isNaN(unixDate)) 
 		res.json({ unix: unixDate.getTime(), utc: unixDate.toUTCString()});
-	}
-	else {
-		res.json({ error : "Invalid Date" });
-	}
+	else res.json({ error : "Invalid Date" });		
 });
 
 // listen for requests :)
